@@ -1,0 +1,30 @@
+{
+    "name": "andersma/map-cropper-web-service",
+    "description": "Web service using SOAP for cropping a map png image",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Andersma\\MapCropperWebService\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Andersma\\MapCropperWebService\\Tests\\": "test/"
+        }
+    },
+    "authors": [
+        {
+            "name": "andersmateusz",
+            "email": "anders_mateusz@outlook.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "ext-soap": "*",
+        "ext-gd": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.4"
+    }
+}

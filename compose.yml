@@ -1,0 +1,9 @@
+services:
+  frankenphp:
+    build: .
+    env_file:
+      - docker.env
+    ports:
+      - "65089:65089"
+    volumes:
+      - .:/app
