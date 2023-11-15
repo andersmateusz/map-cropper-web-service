@@ -26,14 +26,15 @@ final class MapCropperWebServiceTest extends TestCase
         int $width,
         int $height,
     ): void {
-        $image = \imagecreatefromstring(\base64_decode($this->service->byPixelCoordinates($x1, $y1, $x2, $y2)));
+        $image = \imagecreatefromstring($this->service->byPixelCoordinates($x1, $y1, $x2, $y2));
+
         self::assertEquals($width, \imagesx($image));
         self::assertEquals($height, \imagesy($image));
     }
 
     public function testByGpsCoordinates(): void
     {
-        $image = \imagecreatefromstring(\base64_decode($this->service->byGpsCoordinates(53.4451, 14.52665, 53.4200, 14.56868)));
+        $image = \imagecreatefromstring($this->service->byGpsCoordinates(53.4451, 14.52665, 53.4200, 14.56868));
         self::assertEquals(1000, \imagesx($image));
         self::assertEquals(1000, \imagesy($image));
     }

@@ -56,7 +56,7 @@ class Configuration
 
     public function getLatHeight(): float
     {
-        return $this->bottomLatitude - $this->topLatitude;
+        return $this->topLatitude - $this->bottomLatitude;
     }
 
     public function getEnvironmentType(): EnvironmentType

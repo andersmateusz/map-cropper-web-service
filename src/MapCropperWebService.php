@@ -32,6 +32,10 @@ final class MapCropperWebService
         return [
             'width' => $this->width,
             'height' => $this->height,
+            'lat1' => $this->config->getTopLatitude(),
+            'lon1' => $this->config->getLeftLongitude(),
+            'lat2' => $this->config->getBottomLatitude(),
+            'lon2' => $this->config->getRightLongitude(),
         ];
     }
 
@@ -48,9 +52,9 @@ final class MapCropperWebService
     public function byGpsCoordinates(float $lat1, float $lon1, float $lat2, float $lon2): string
     {
         $x1 = ($lon1 - $this->config->getLeftLongitude()) * ($this->width / $this->config->getLongWidth());
-        $y1 = ($lat1 - $this->config->getTopLatitude()) * ($this->height / $this->config->getLatHeight());
-        $x2 = ($lon2 - $this->config->getRightLongitude()) * ($this->width / $this->config->getLongWidth());
-        $y2 = ($lat2 - $this->config->getBottomLatitude()) * ($this->height / $this->config->getLatHeight());
+        $y1 = ($this->config->getTopLatitude() - $lat1) * ($this->height / $this->config->getLatHeight());
+        $x2 = ($lon2 - $this->config->getLeftLongitude()) * ($this->width / $this->config->getLongWidth());
+        $y2 = ($this->config->getTopLatitude() - $lat2) * ($this->height / $this->config->getLatHeight());
 
         return $this->byPixelCoordinates((int) $x1, (int) $y1, (int) $x2, (int) $y2);
     }
@@ -73,7 +77,7 @@ final class MapCropperWebService
         $height = ($y2 > $this->height || $y2 <= $y1) ? $this->height : $y2 - $y1;
 
         if (ClientType::SOAP === $clientType) {
-            return \base64_encode(\file_get_contents($this->crop($x1, $y1, $width, $height)));
+            return \file_get_contents($this->crop($x1, $y1, $width, $height));
 
         }
 

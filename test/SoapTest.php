@@ -33,7 +33,7 @@ class SoapTest extends TestCase
 
         self::assertTrue(\in_array('base64Binary byGpsCoordinates(double $lat1, double $lon1, double $lat2, double $lon2)', $functions), '"byGpsCoordinates" operation not found or has wrong signature');
         self::assertTrue(\in_array('base64Binary byPixelCoordinates(int $x1, int $y1, int $x2, int $y2)', $functions), '"byPixelCoordinates" operation not found or has wrong signature');
-        self::assertTrue(\in_array('list(int $width, int $height) imageInfo()', $functions), '"imageInfo" operation not found or has wrong signature');
+        self::assertTrue(\in_array('list(int $width, int $height, double $lat1, double $lon1, double $lat2, double $lon2) imageInfo()', $functions), '"imageInfo" operation not found or has wrong signature');
     }
 
     public function testByGpsCoordinatesResponds(): void
@@ -47,11 +47,19 @@ class SoapTest extends TestCase
     {
         $info = $this->client->imageInfo();
         self::assertIsArray($info);
-        self::assertCount(2, $info);
+        self::assertCount(6, $info);
         self::assertArrayHasKey('width', $info);
         self::assertArrayHasKey('height', $info);
-        list('width' => $width, 'height' => $height) = $info;
+        self::assertArrayHasKey('lat1', $info);
+        self::assertArrayHasKey('lon1', $info);
+        self::assertArrayHasKey('lat2', $info);
+        self::assertArrayHasKey('lon2', $info);
+        list('width' => $width, 'height' => $height, 'lat1' => $lat1, 'lon1' => $lon1, 'lat2' => $lat2, 'lon2' => $lon2) = $info;
         self::assertIsInt($width);
         self::assertIsInt($height);
+        self::assertIsFloat($lat1);
+        self::assertIsFloat($lon1);
+        self::assertIsFloat($lat2);
+        self::assertIsFloat($lon2);
     }
 }

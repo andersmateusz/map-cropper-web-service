@@ -27,6 +27,10 @@
     <message name="imageInfoResponse">
         <part name="width" type="xsd:int"/>
         <part name="height" type="xsd:int"/>
+        <part name="lat1" type="xsd:double"/>
+        <part name="lon1" type="xsd:double"/>
+        <part name="lat2" type="xsd:double"/>
+        <part name="lon2" type="xsd:double"/>
     </message>
     <!-- server's services -->
     <portType name="CropperPortType">
